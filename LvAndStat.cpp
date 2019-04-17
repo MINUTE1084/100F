@@ -1,9 +1,9 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 
 void LvCheck(Entity &Player){
 	while (Player.EXP >= (int)(Player.LV * 2.5 * 5)) {
 		Player.EXP -= (int)(Player.LV * 2.5 * 5);
-		printf("Level UP! ÇöÀç ·¹º§ : %d\n", ++Player.LV);
+		printf("Level UP! í˜„ì¬ ë ˆë²¨ : %d\n", ++Player.LV);
 		Player.MaxHP += 5;
 		Player.HP = Player.MaxHP;
 		Player.StatPoint += 3;
@@ -16,91 +16,94 @@ void LvCheck(Entity &Player){
 
 void Stat(Entity &Player) {
 	int sel_stat, pointcnt = 1;
+	bool continue_ = true;
 	char yn[2];
-sel_stat:
-	system("cls");
-	info(Player);
-	sel_stat = 0;
-	printf("ÇöÀç ½ºÅÈ Æ÷ÀÎÆ® : %d Æ÷ÀÎÆ®\n", Player.StatPoint);
-	printf("1) ATK - °ø°İ·Â : °ø°İ·ÂÀÌ Áõ°¡ÇÕ´Ï´Ù.\n");
-	printf("2) SPD - ½ºÇÇµå : ÇÑ ÅÏ¿¡ ¿©·¯ ¹ø °ø°İ ÇÒ È®·üÀÌ Áõ°¡ÇÕ´Ï´Ù.\n");
-	printf("3) CRT - Ä¡¸íÅ¸À² : ÀÏ¹İ °ø°İ ½Ã Ä¡¸íÅ¸°¡ µîÀåÇÒ È®·üÀÌ Áõ°¡ÇÕ´Ï´Ù.\n");
-	printf("°­È­½ÃÅ³ ½ºÅÈÀ» ¼±ÅÃÇØÁÖ¼¼¿ä. ÇÑ¹ø °­È­ ½Ã ¼öÁ¤ÀÌ ºÒ°¡´ÉÇÕ´Ï´Ù.\n> ");
-	scanf("%d", &sel_stat);
-
-	if (Player.StatPoint > 1) {
-		printf("½ºÅÈ Æ÷ÀÎÆ®¸¦ ¾ó¸¶³ª »ç¿ëÇÏ½Ã°Ú½À´Ï±î?\n> ");
-		scanf("%d", &pointcnt);
-		if (pointcnt == 1) pointcnt = 1;
-		else if (pointcnt > Player.StatPoint) {
-			printf("¼ÒÁöÁßÀÎ ½ºÅÈ Æ÷ÀÎÆ® º¸´Ù ¸¹½À´Ï´Ù. 1 Æ÷ÀÎÆ®¸¸ »ç¿ëµË´Ï´Ù.\n");
-			pointcnt = 1;
-			Sleep(1500);
-		}
-		else if (pointcnt < 1) {
-			printf("1 ¹Ì¸¸ÀÇ ¼ö°¡ ÀÔ·ÂµÇ¾ú½À´Ï´Ù. 1 Æ÷ÀÎÆ®¸¸ »ç¿ëµË´Ï´Ù.\n");
-			pointcnt = 1;
-			Sleep(1500);
-		}
+	while (continue_) {
+		continue_ = false;
 		system("cls");
-	}
-
-	switch (sel_stat) {
-	case 1:
-		system("cls");
-		Player.ATK += pointcnt;
-		printf("ATK°¡ %d »ó½ÂÇß½À´Ï´Ù.\n", pointcnt);
 		info(Player);
-		Player.StatPoint -= pointcnt;
-		if (Player.StatPoint > 0) {
-			printf("½ºÅÈ °­È­¸¦ °è¼Ó ÁøÇàÇÏ½Ã°Ú½À´Ï±î? (Y/N)\n> ");
-			scanf("%s", yn);
+		sel_stat = 0;
+		printf("í˜„ì¬ ìŠ¤íƒ¯ í¬ì¸íŠ¸ : %d í¬ì¸íŠ¸\n", Player.StatPoint);
+		printf("1) ATK - ê³µê²©ë ¥ : ê³µê²©ë ¥ì´ ì¦ê°€í•©ë‹ˆë‹¤.\n");
+		printf("2) SPD - ìŠ¤í”¼ë“œ : í•œ í„´ì— ì—¬ëŸ¬ ë²ˆ ê³µê²© í•  í™•ë¥ ì´ ì¦ê°€í•©ë‹ˆë‹¤.\n");
+		printf("3) CRT - ì¹˜ëª…íƒ€ìœ¨ : ì¼ë°˜ ê³µê²© ì‹œ ì¹˜ëª…íƒ€ê°€ ë“±ì¥í•  í™•ë¥ ì´ ì¦ê°€í•©ë‹ˆë‹¤.\n");
+		printf("ê°•í™”ì‹œí‚¬ ìŠ¤íƒ¯ì„ ì„ íƒí•´ì£¼ì„¸ìš”. í•œë²ˆ ê°•í™” ì‹œ ìˆ˜ì •ì´ ë¶ˆê°€ëŠ¥í•©ë‹ˆë‹¤.\n> ");
+		scanf("%d", &sel_stat);
 
-			if (yn[0] == 'Y' || yn[0] == 'y') goto sel_stat;
-		}
-		break;
-	case 2:
-		system("cls");
-		Player.SPD += pointcnt;
-		printf("SPD°¡ %d »ó½ÂÇß½À´Ï´Ù.\n", pointcnt);
-		info(Player);
-		Player.StatPoint -= pointcnt;
-		if (Player.StatPoint > 0) {
-			printf("½ºÅÈ °­È­¸¦ °è¼Ó ÁøÇàÇÏ½Ã°Ú½À´Ï±î? (Y/N)\n> ");
-			scanf("%s", yn);
-
-			if (yn[0] == 'Y' || yn[0] == 'y') goto sel_stat;
-		}
-		break;
-	case 3:
-		system("cls");
-		if (Player.CRT < 100) {
-			Player.CRT += pointcnt;
-			Player.StatPoint -= pointcnt;
-
-			if (Player.CRT > 100) {
-				printf("CRT°¡ 100%%¸¦ ÃÊ°úÇß½À´Ï´Ù. ÃÊ°úµÈ ½ºÅÈÀº Æ÷ÀÎÆ®·Î ¹İÈ¯µË´Ï´Ù.\n");
-				pointcnt += (int)(Player.CRT) - 100;
-				Player.CRT = 100;
-				printf("CRT°¡ 1 »ó½ÂÇß½À´Ï´Ù.\n");
+		if (Player.StatPoint > 1) {
+			printf("ìŠ¤íƒ¯ í¬ì¸íŠ¸ë¥¼ ì–¼ë§ˆë‚˜ ì‚¬ìš©í•˜ì‹œê² ìŠµë‹ˆê¹Œ?\n> ");
+			scanf("%d", &pointcnt);
+			if (pointcnt == 1) pointcnt = 1;
+			else if (pointcnt > Player.StatPoint) {
+				printf("ì†Œì§€ì¤‘ì¸ ìŠ¤íƒ¯ í¬ì¸íŠ¸ ë³´ë‹¤ ë§ìŠµë‹ˆë‹¤. 1 í¬ì¸íŠ¸ë§Œ ì‚¬ìš©ë©ë‹ˆë‹¤.\n");
+				pointcnt = 1;
+				Sleep(1500);
 			}
-			else printf("CRT°¡ %d »ó½ÂÇß½À´Ï´Ù.\n", pointcnt);
+			else if (pointcnt < 1) {
+				printf("1 ë¯¸ë§Œì˜ ìˆ˜ê°€ ì…ë ¥ë˜ì—ˆìŠµë‹ˆë‹¤. 1 í¬ì¸íŠ¸ë§Œ ì‚¬ìš©ë©ë‹ˆë‹¤.\n");
+				pointcnt = 1;
+				Sleep(1500);
+			}
+			system("cls");
+		}
 
+		switch (sel_stat) {
+		case 1:
+			system("cls");
+			Player.ATK += pointcnt;
+			printf("ATKê°€ %d ìƒìŠ¹í–ˆìŠµë‹ˆë‹¤.\n", pointcnt);
 			info(Player);
-
+			Player.StatPoint -= pointcnt;
 			if (Player.StatPoint > 0) {
-				printf("½ºÅÈ °­È­¸¦ °è¼Ó ÁøÇàÇÏ½Ã°Ú½À´Ï±î? (Y/N)\n> ");
+				printf("ìŠ¤íƒ¯ ê°•í™”ë¥¼ ê³„ì† ì§„í–‰í•˜ì‹œê² ìŠµë‹ˆê¹Œ? (Y/N)\n> ");
 				scanf("%s", yn);
-				system("pause");
-				if (yn[0] == 'Y' || yn[0] == 'y') goto sel_stat;
+
+				if (yn[0] == 'Y' || yn[0] == 'y') continue_ = true;
 			}
 			break;
+		case 2:
+			system("cls");
+			Player.SPD += pointcnt;
+			printf("SPDê°€ %d ìƒìŠ¹í–ˆìŠµë‹ˆë‹¤.\n", pointcnt);
+			info(Player);
+			Player.StatPoint -= pointcnt;
+			if (Player.StatPoint > 0) {
+				printf("ìŠ¤íƒ¯ ê°•í™”ë¥¼ ê³„ì† ì§„í–‰í•˜ì‹œê² ìŠµë‹ˆê¹Œ? (Y/N)\n> ");
+				scanf("%s", yn);
+
+				if (yn[0] == 'Y' || yn[0] == 'y') continue_ = true;
+			}
+			break;
+		case 3:
+			system("cls");
+			if (Player.CRT < 100) {
+				Player.CRT += pointcnt;
+				Player.StatPoint -= pointcnt;
+
+				if (Player.CRT > 100) {
+					printf("CRTê°€ 100%%ë¥¼ ì´ˆê³¼í–ˆìŠµë‹ˆë‹¤. ì´ˆê³¼ëœ ìŠ¤íƒ¯ì€ í¬ì¸íŠ¸ë¡œ ë°˜í™˜ë©ë‹ˆë‹¤.\n");
+					pointcnt += (int)(Player.CRT) - 100;
+					Player.CRT = 100;
+					printf("CRTê°€ 1 ìƒìŠ¹í–ˆìŠµë‹ˆë‹¤.\n");
+				}
+				else printf("CRTê°€ %d ìƒìŠ¹í–ˆìŠµë‹ˆë‹¤.\n", pointcnt);
+
+				info(Player);
+
+				if (Player.StatPoint > 0) {
+					printf("ìŠ¤íƒ¯ ê°•í™”ë¥¼ ê³„ì† ì§„í–‰í•˜ì‹œê² ìŠµë‹ˆê¹Œ? (Y/N)\n> ");
+					scanf("%s", yn);
+					system("pause");
+					if (yn[0] == 'Y' || yn[0] == 'y') continue_ = true;
+				}
+				break;
+			}
+			else {
+				printf("ìŠ¤íƒ¯ ê°•í™”ê°€ ë¶ˆê°€ëŠ¥ í•©ë‹ˆë‹¤.\n");
+				system("pause");
+			}
+		default:
+			continue_ = true;
 		}
-		else {
-			printf("½ºÅÈ °­È­°¡ ºÒ°¡´É ÇÕ´Ï´Ù.\n");
-			system("pause");
-		}
-	default:
-		goto sel_stat;
 	}
 }
